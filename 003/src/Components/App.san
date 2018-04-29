@@ -1,0 +1,45 @@
+
+<template>
+    <div>
+        <input type="text" value="{= info.name =}" placeholder="姓名" >
+        <input type="text" value="{= info.age =}" placeholder="年龄" on-input="setAge">
+        <input type="text" value="{= info.des =}" placeholder="简介" >
+        <p>信息 : <button on-click="clear">移除信息</button></p>
+        <p>姓名 : <span><u>{{info.name}}</u></span></p>
+        <p>年龄 : <span><u>{{info.age}}</u></span></p>
+        <p>简介 : <span><u>{{info.des}}</u></span></p>  
+    </div>
+</template>
+<script>
+import san, {DataTypes} from 'san';
+    export default {
+        initData () {
+            return {
+                info: {
+                    name: undefined,
+                    age: undefined,
+                    des: undefined
+                }
+            };
+        },
+        // 移除事件
+        clear: function () {
+            this.data.set('info', {
+                name: undefined,
+                age: undefined,
+                des: undefined,
+            });
+        },
+    //数据校验  
+        dataTypes: {
+            info: DataTypes.shape({
+                name: DataTypes.string,
+                age: DataTypes.number,
+                des: DataTypes.string
+            })
+        },
+        setAge() {
+            this.data.set('info.age',isNaN(parseInt(this.data.get("info.age"))) ? undefined : parseInt(this.data.get("info.age")))
+            }
+        }
+</script>
