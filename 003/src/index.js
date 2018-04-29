@@ -5,5 +5,5 @@
 import san from "san";
 import {router, Link} from "san-router";
 import App from "./Components/App.san";
-router.add({rule: '/', Component: App, target: 'body'});
+router.add({ rule: '/', Component: App, target: '#app'});
 router.start();
