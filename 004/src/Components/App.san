@@ -1,0 +1,72 @@
+
+<template>
+    <div>
+        <button type='button' on-click='add'>添加</button>
+    <table >
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>审核状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr s-for='o ,index in items'>
+          <td>{{o.name}}</td>
+          <td s-if='o.status==1'>合格</td>
+          <td s-elif='o.status==2'>不合格</td>
+          <td s-elif='o.status==3'>待审核</td>
+          <td>
+            <button type='button' s-if="o.op===0" on-click='delete(index)'>删除</button>
+            <button type='button' s-elif="o.op===1" on-click='check(index)'>审核</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>  
+    </div>
+</template>
+<script>
+import san, {DataTypes} from 'san';
+    export default {
+        initData () {
+            return {
+                 items: [
+                    { name: '张三', status: 1,op:0},
+                    { name: '李四', status: 2,op:0},
+                    { name: '王五', status: 3,op:1},
+                    { name: '赵六', status: 3,op:1},
+                    { name: '孙七', status: 3,op:1},
+                ],
+            };
+        },
+        dataTypes:{
+            items:DataTypes.array,
+            o:DataTypes.shape({
+                name:DataTypes.string,
+                status:DataTypes.number,
+                op:DataTypes.number
+            }),
+        },
+        add(){
+            this.data.push('items',{name:'new',status:3,op:1});
+        },
+        delete(index){
+            this.data.removeAt('items',index);
+        },
+        check(index){
+             this.data.set(`items[${index}].op`,0);
+            this.data.set(`items[${index}].status`,Math.ceil(Math.random()*2));
+        },
+    }
+</script>
+<style>
+    table{
+        text-align:center;
+        border-collapse: collapse; 
+        border:1px solid;
+    }
+    table td,th{
+        border:1px solid;
+    }
+    
+</style>
