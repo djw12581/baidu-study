@@ -1,0 +1,29 @@
+<template>
+    <div id="block" class="{{status?'old':'new'}}"  on-click='toggle'></div>
+</template>
+<script>
+import san, {DataTypes} from 'san';
+    export default {
+        initData () {
+            return {
+                 status:true
+            };
+        },
+        toggle(){
+            var ostatus = this.data.get('status');
+            this.data.set('status',!ostatus)
+        }
+    }
+</script>
+<style>
+    .old{
+        background:red;
+        width:100px;
+        height:100px;
+    }
+    .new{
+        background:blue;
+        width:100px;
+        height:100px;
+    }
+</style>
